@@ -4,22 +4,22 @@ import (
 	"fmt"
 )
 
-func parseBody(tokens []Token, i *int) BodyNode {
+func parseBody(tokens []Token, i int) BodyNode {
 	body := BodyNode{}
 	content := []string{}
-	*i++
-	for tokens[*i].Type != TOKEN_RBRACE {
-		switch tokens[*i].Type {
+	i++
+	for tokens[i].Type != TOKEN_RBRACE {
+		switch tokens[i].Type {
 		case TOKEN_STRING:
-			content = append(content, tokens[*i].Value)
+			content = append(content, tokens[i].Value)
 		case TOKEN_INTEGER:
-			content = append(content, tokens[*i].Value)
+			content = append(content, tokens[i].Value)
 		case TOKEN_COLON:
 			if len(content) != 0 {
-				content = append(content, tokens[*i].Value)
+				content = append(content, tokens[i].Value)
 			}
 		}
-		*i++
+		i++
 	}
 	if len(content) == 0 {
 		body.Content = ""

@@ -34,6 +34,16 @@ func Tokenize(input string) []Token {
 			tokens = append(tokens, Token{Type: TOKEN_PUT, Value: match})
 		case "post":
 			tokens = append(tokens, Token{Type: TOKEN_POST, Value: match})
+		case "get":
+			tokens = append(tokens, Token{Type: TOKEN_GET, Value: match})
+		case "delete":
+			tokens = append(tokens, Token{Type: TOKEN_DELETE, Value: match})
+		case "options":
+			tokens = append(tokens, Token{Type: TOKEN_OPTIONS, Value: match})
+		case "patch":
+			tokens = append(tokens, Token{Type: TOKEN_PATCH, Value: match})
+		case "head":
+			tokens = append(tokens, Token{Type: TOKEN_HEAD, Value: match})
 		case "headers":
 			tokens = append(tokens, Token{Type: TOKEN_HEADERS, Value: match})
 		case "auth":

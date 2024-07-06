@@ -31,15 +31,16 @@ type BodyNode struct {
 func Parse(tokens []Token) []ASTNode {
 	var nodes []ASTNode
 	for i := range tokens {
+		i := i
 		switch tokens[i].Type {
 		case TOKEN_META:
-			nodes = append(nodes, parseMeta(tokens, &i))
-		case TOKEN_POST:
-			nodes = append(nodes, parseHttpMethod(tokens, &i))
+			nodes = append(nodes, parseMeta(tokens, i))
+		case TOKEN_POST, TOKEN_GET, TOKEN_PUT, TOKEN_DELETE, TOKEN_OPTIONS, TOKEN_PATCH, TOKEN_HEAD:
+			nodes = append(nodes, parseHttpMethod(tokens, i))
 		case TOKEN_BODY:
-			nodes = append(nodes, parseBody(tokens, &i))
+			nodes = append(nodes, parseBody(tokens, i))
 		case TOKEN_AUTH:
-			nodes = append(nodes, parseAuth(tokens, &i))
+			nodes = append(nodes, parseAuth(tokens, i))
 		}
 	}
 	return nodes
