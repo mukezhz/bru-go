@@ -3,7 +3,7 @@
 - [x] wrote a parse to understand bru file by golang
 -  [ ] generate code from the bru file for golang
 
-![image](https://github.com/mukezhz/bru-go/assets/43813670/e1082efd-888f-4fe4-89be-7294632f8d38)
+![image](https://github.com/mukezhz/bru-go/assets/43813670/d1a305dd-8522-4ea2-97ae-7eeadcbb9b36)
 
 
 ---
