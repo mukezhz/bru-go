@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	BRUNO_TAGS  = `^(meta|post|auth|body)`
+	BRUNO_TAGS  = `\s(meta|post|auth|body)`
 	OTHER_REGEX = `(\w+\s?\w+|".*?"|{|}|\d+|:)`
 	URL_REGEX   = `(http[s]?:\/\/)?(\{\{\w+\}\})(\/[^\s]*)?`
 )
