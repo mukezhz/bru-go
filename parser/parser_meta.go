@@ -1,6 +1,9 @@
 package parser
 
-import "strconv"
+import (
+	"strconv"
+	"strings"
+)
 
 func parseMeta(tokens []Token, i *int) MetaNode {
 	meta := MetaNode{}
@@ -8,7 +11,7 @@ func parseMeta(tokens []Token, i *int) MetaNode {
 	for tokens[*i].Type != TOKEN_RBRACE {
 		switch tokens[*i].Type {
 		case TOKEN_IDENTIFIER:
-			switch tokens[*i].Value {
+			switch strings.TrimSpace(tokens[*i].Value) {
 			case "name":
 				*i++
 				meta.Name = tokens[*i+1].Value

@@ -9,9 +9,11 @@ type MetaNode struct {
 }
 
 type HTTPNode struct {
-	URL  string
-	Body string
-	Auth string
+	Method  string
+	URL     string
+	Body    string
+	Auth    string
+	Headers map[string]string
 }
 
 type PostNode struct {
@@ -26,18 +28,18 @@ type BodyNode struct {
 	Content string
 }
 
-func Parse(tokens []Token) ASTNode {
+func Parse(tokens []Token) []ASTNode {
 	var nodes []ASTNode
-	for i := 0; i < len(tokens); i++ {
+	for i := range tokens {
 		switch tokens[i].Type {
 		case TOKEN_META:
 			nodes = append(nodes, parseMeta(tokens, &i))
 		case TOKEN_POST:
-			nodes = append(nodes, parsePost(tokens, &i))
-		case TOKEN_AUTH:
-			nodes = append(nodes, parseAuth(tokens, &i))
+			nodes = append(nodes, parseHttpMethod(tokens, &i))
 		case TOKEN_BODY:
 			nodes = append(nodes, parseBody(tokens, &i))
+		case TOKEN_AUTH:
+			nodes = append(nodes, parseAuth(tokens, &i))
 		}
 	}
 	return nodes

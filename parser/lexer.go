@@ -6,16 +6,27 @@ import (
 )
 
 const (
-	BRUNO_TAGS  = `\s(meta|post|auth|body)`
+	BRUNO_TAGS  = `(meta|post|auth|body)`
 	OTHER_REGEX = `(\w+\s?\w+|".*?"|{|}|\d+|:)`
 	URL_REGEX   = `(http[s]?:\/\/)?(\{\{\w+\}\})(\/[^\s]*)?`
 )
 
 func Tokenize(input string) []Token {
+	stack := []rune{}
 	var tokens []Token
 	re := regexp.MustCompile(fmt.Sprintf(`%s|%s|%s`, BRUNO_TAGS, URL_REGEX, OTHER_REGEX))
 	matches := re.FindAllString(input, -1)
 	for _, match := range matches {
+		if match == "{" {
+			stack = append(stack, '{')
+		} else if match == "}" {
+			stack = stack[:len(stack)-1]
+		}
+
+		bruRe := regexp.MustCompile(BRUNO_TAGS)
+		if len(stack) > 0 && bruRe.MatchString(match) {
+			match = match + " "
+		}
 		switch match {
 		case "meta":
 			tokens = append(tokens, Token{Type: TOKEN_META, Value: match})
