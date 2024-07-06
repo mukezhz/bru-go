@@ -52,3 +52,25 @@ func TestParseAuth(t *testing.T) {
 		t.Errorf("Expected type __auth__, got %s", tokens[0].Type)
 	}
 }
+
+//go:embed meta.bru
+var metaBru string
+
+func TestParseMeta(t *testing.T) {
+	meta := parser.Token{
+		Type:  parser.TOKEN_META,
+		Value: "meta",
+	}
+	tokens := parser.Tokenize(metaBru)
+	if len(tokens) != 12 {
+		t.Errorf("Expected 12 tokens, got %d", len(tokens))
+	}
+
+	if tokens[0].Value != meta.Value {
+		t.Errorf("Expected bru tag meta, got %s", tokens[0].Type)
+	}
+
+	if tokens[0].Type != meta.Type {
+		t.Errorf("Expected type __meta__, got %s", tokens[0].Type)
+	}
+}
