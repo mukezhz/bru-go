@@ -1,12 +1,19 @@
 package parser
 
 import (
+	"fmt"
 	"regexp"
+)
+
+const (
+	BRUNO_TAGS  = `^(meta|post|auth|body)`
+	OTHER_REGEX = `(\w+\s?\w+|".*?"|{|}|\d+|:)`
+	URL_REGEX   = `(http[s]?:\/\/)?(\{\{\w+\}\})(\/[^\s]*)?`
 )
 
 func Tokenize(input string) []Token {
 	var tokens []Token
-	re := regexp.MustCompile(`^(meta|post|auth|body)|(\w+\s?\w+|".*?"|{|}|\d+|:)`)
+	re := regexp.MustCompile(fmt.Sprintf(`%s|%s|%s`, BRUNO_TAGS, URL_REGEX, OTHER_REGEX))
 	matches := re.FindAllString(input, -1)
 	for _, match := range matches {
 		switch match {
