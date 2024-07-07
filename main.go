@@ -5,39 +5,43 @@ import (
 	"log"
 
 	"github.com/mukezhz/bru-go/parser"
+	"github.com/mukezhz/bru-go/utils"
 )
 
 //go:embed create.bru
 var bruFile string
 
 func main() {
-	// fmt.Println(bruFile)
-	tokens := parser.Tokenize(bruFile)
-	// for i, token := range tokens {
-	// 	fmt.Println(i, token.Type, token.Value)
-	// }
-	ast := parser.Parse(tokens)
-	// log.Println(ast)
-	for _, n := range ast {
-		switch n := n.(type) {
-		case parser.HTTPNode:
-			log.Println("HTTPNode")
-			log.Println(n.Method, n.URL, n.Body, n.Auth)
-		case parser.MetaNode:
-			log.Println("MetaNode")
-			log.Println(n.Name, n.Type, n.Seq)
-		case parser.BodyNode:
-			log.Println("BodyNode")
-			log.Println(n.Content)
-		case []parser.HeaderNode:
-			log.Println("HeaderNode")
-			for _, v := range n {
-				log.Println(v.Key, v.Value)
-			}
-
-			v := parser.FromHeaderNodeToMap(n)
-			log.Println(v)
-		}
+	tokens := GetTokens(bruFile)
+	ast := GetAST(tokens)
+	n := GetTagNode[parser.HTTPNode](ast)
+	log.Println(n.Method, n.URL, n.Body, n.Auth)
+	headers := GetTagNode[[]parser.HeaderNode](ast)
+	log.Println(headers)
+	mapHeaders := utils.FromHeaderNodeToMap(headers)
+	log.Println(mapHeaders)
+	for k, v := range mapHeaders {
+		log.Println(k, v)
 	}
 
+}
+
+func GetTokens(file string) []parser.Token {
+	tokens := parser.Tokenize(file)
+	return tokens
+}
+
+func GetAST(tokens []parser.Token) []parser.ASTNode {
+	ast := parser.Parse(tokens)
+	return ast
+}
+
+func GetTagNode[T any](ast []parser.ASTNode) T {
+	for _, n := range ast {
+		switch n := n.(type) {
+		case T:
+			return n
+		}
+	}
+	return *new(T)
 }
