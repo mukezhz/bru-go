@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"log"
 
-	"github.com/mukezhz/bru-go/brugo"
+	"github.com/mukezhz/bru-go/bru"
 	"github.com/mukezhz/bru-go/parser"
 	"github.com/mukezhz/bru-go/utils"
 )
@@ -13,11 +13,11 @@ import (
 var bruFile string
 
 func main() {
-	tokens := brugo.GetTokens(bruFile)
-	ast := brugo.GetAST(tokens)
-	n := brugo.GetTagNode[parser.HTTPNode](ast)
+	tokens := bru.GetTokens(bruFile)
+	ast := bru.GetAST(tokens)
+	n := bru.GetTagNode[parser.HTTPNode](ast)
 	log.Println(n.Method, n.URL, n.Body, n.Auth)
-	headers := brugo.GetTagNode[[]parser.HeaderNode](ast)
+	headers := bru.GetTagNode[[]parser.HeaderNode](ast)
 	log.Println(headers)
 	mapHeaders := utils.FromHeaderNodeToMap(headers)
 	log.Println(mapHeaders)
