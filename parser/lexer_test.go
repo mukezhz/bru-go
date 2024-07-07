@@ -8,7 +8,7 @@ import (
 	"github.com/mukezhz/bru-go/parser"
 )
 
-//go:embed body.bru
+//go:embed bru/body.bru
 var bodyBru string
 
 func TestParseBody(t *testing.T) {
@@ -31,7 +31,7 @@ func TestParseBody(t *testing.T) {
 	}
 }
 
-//go:embed auth.bru
+//go:embed bru/auth.bru
 var authBru string
 
 func TestParseAuth(t *testing.T) {
@@ -53,7 +53,7 @@ func TestParseAuth(t *testing.T) {
 	}
 }
 
-//go:embed meta.bru
+//go:embed bru/meta.bru
 var metaBru string
 
 func TestParseMeta(t *testing.T) {
@@ -75,7 +75,7 @@ func TestParseMeta(t *testing.T) {
 	}
 }
 
-//go:embed post.bru
+//go:embed bru/post.bru
 var postBru string
 
 func TestParsePost(t *testing.T) {
