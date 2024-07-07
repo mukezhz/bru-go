@@ -7,7 +7,7 @@ import (
 
 const (
 	BRUNO_TAGS  = `(meta|post|auth|body)`
-	OTHER_REGEX = `(\w+\s?\w+|".*?"|{|}|\d+|:)`
+	OTHER_REGEX = `(\w+\s?-?\/?\w+|".*?"|{|}|\d+|:)`
 	URL_REGEX   = `(http[s]?:\/\/)?(\{\{\w+\}\})(\/[^\s]*)?`
 )
 

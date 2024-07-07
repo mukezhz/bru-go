@@ -18,15 +18,25 @@ func main() {
 	// }
 	ast := parser.Parse(tokens)
 	// log.Println(ast)
-	for _, node := range ast {
-		if g, ok := node.(parser.HTTPNode); ok {
-			log.Println(g.Method, g.URL, g.Body, g.Auth, g.Headers)
-		}
-		if g, ok := node.(parser.MetaNode); ok {
-			log.Println(g.Name, g.Type, g.Seq)
-		}
-		if g, ok := node.(parser.BodyNode); ok {
-			log.Println(g.Content)
+	for _, n := range ast {
+		switch n := n.(type) {
+		case parser.HTTPNode:
+			log.Println("HTTPNode")
+			log.Println(n.Method, n.URL, n.Body, n.Auth)
+		case parser.MetaNode:
+			log.Println("MetaNode")
+			log.Println(n.Name, n.Type, n.Seq)
+		case parser.BodyNode:
+			log.Println("BodyNode")
+			log.Println(n.Content)
+		case []parser.HeaderNode:
+			log.Println("HeaderNode")
+			for _, v := range n {
+				log.Println(v.Key, v.Value)
+			}
+
+			v := parser.FromHeaderNodeToMap(n)
+			log.Println(v)
 		}
 	}
 

@@ -9,15 +9,15 @@ type MetaNode struct {
 }
 
 type HTTPNode struct {
-	Method  string
-	URL     string
-	Body    string
-	Auth    string
-	Headers map[string]string
+	Method string
+	URL    string
+	Body   string
+	Auth   string
 }
 
-type PostNode struct {
-	HTTPNode
+type HeaderNode struct {
+	Key   string
+	Value string
 }
 
 type AuthNode struct {
@@ -41,6 +41,8 @@ func Parse(tokens []Token) []ASTNode {
 			nodes = append(nodes, parseBody(tokens, i))
 		case TOKEN_AUTH:
 			nodes = append(nodes, parseAuth(tokens, i))
+		case TOKEN_HEADERS:
+			nodes = append(nodes, parseHeaders(tokens, i))
 		}
 	}
 	return nodes

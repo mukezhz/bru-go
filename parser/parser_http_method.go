@@ -7,7 +7,6 @@ import (
 func parseHttpMethod(tokens []Token, i int) HTTPNode {
 	req := HTTPNode{}
 	req.Method = tokens[i].Value
-	req.Headers = make(map[string]string)
 	i++
 	for tokens[i].Type != TOKEN_RBRACE {
 		switch tokens[i].Type {

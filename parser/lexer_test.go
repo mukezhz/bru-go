@@ -96,3 +96,26 @@ func TestParsePost(t *testing.T) {
 		t.Errorf("Expected type __post__, got %s", tokens[0].Type)
 	}
 }
+
+//go:embed bru/headers.bru
+var headersBru string
+
+func TestHeaders(t *testing.T) {
+	header := parser.Token{
+		Type:  parser.TOKEN_HEADERS,
+		Value: "headers",
+	}
+	tokens := parser.Tokenize(headersBru)
+
+	if len(tokens) != 9 {
+		t.Errorf("Expected 9 tokens, got %d", len(tokens))
+	}
+
+	if tokens[0].Value != header.Value {
+		t.Errorf("Expected bru tag headers, got %s", tokens[0].Type)
+	}
+
+	if tokens[0].Type != header.Type {
+		t.Errorf("Expected type __headers__, got %s", tokens[0].Type)
+	}
+}
