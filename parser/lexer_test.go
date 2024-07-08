@@ -106,7 +106,6 @@ func TestHeaders(t *testing.T) {
 		Value: "headers",
 	}
 	tokens := parser.Tokenize(headersBru)
-
 	if len(tokens) != 9 {
 		t.Errorf("Expected 9 tokens, got %d", len(tokens))
 	}

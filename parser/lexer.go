@@ -3,11 +3,12 @@ package parser
 import (
 	"fmt"
 	"regexp"
+	"strings"
 )
 
 const (
 	BRUNO_TAGS  = `(meta|post|auth|body)`
-	OTHER_REGEX = `(\w+\s?-?\/?\w+|".*?"|{|}|\d+|:)`
+	OTHER_REGEX = `(\b(?:[\w/-]+(?:[ \t]+|[-/])?)+\b|".*?"|{|}|\d+|:)`
 	URL_REGEX   = `(http[s]?:\/\/)?(\{\{\w+\}\})(\/[^\s]*)?`
 )
 
@@ -57,6 +58,9 @@ func Tokenize(input string) []Token {
 		case "}":
 			tokens = append(tokens, Token{Type: TOKEN_RBRACE, Value: match})
 		default:
+			if strings.TrimSpace(match) == "" {
+				continue
+			}
 			if regexp.MustCompile(`^\d+$`).MatchString(match) {
 				tokens = append(tokens, Token{Type: TOKEN_INTEGER, Value: match})
 			} else if regexp.MustCompile(`^".*"$`).MatchString(match) {

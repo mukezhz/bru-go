@@ -21,3 +21,10 @@ func GetTagNode[T any](ast []parser.ASTNode) T {
 	}
 	return *new(T)
 }
+
+func Unmarshal(b []byte) (bru Bru, err error) {
+	if err := bru.Unmarshal(b); err != nil {
+		return Bru{}, err
+	}
+	return bru, nil
+}

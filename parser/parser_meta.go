@@ -14,7 +14,7 @@ func parseMeta(tokens []Token, i int) MetaNode {
 			switch strings.TrimSpace(tokens[i].Value) {
 			case "name":
 				i++
-				meta.Name = tokens[i+1].Value
+				meta.Name = strings.TrimSpace(tokens[i+1].Value)
 			case "type":
 				i++
 				meta.Type = tokens[i+1].Value
