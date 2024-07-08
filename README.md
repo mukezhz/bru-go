@@ -1,9 +1,10 @@
 # Bru file to Go Parser
 
 - [x] wrote a parse to understand bru file by golang
--  [ ] generate code from the bru file for golang
+- [x] generate code from the bru file for golang [checkout](https://github.com/mukezhz/geng)
 
-![image](https://github.com/mukezhz/bru-go/assets/43813670/d1a305dd-8522-4ea2-97ae-7eeadcbb9b36)
+
+![image](https://github.com/mukezhz/bru-go/assets/43813670/98682e08-d27d-4a49-876f-574c406f84dc)
 
 
 ---
